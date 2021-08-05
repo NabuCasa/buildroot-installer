@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -e
+set -o pipefail
+
+url=https://os-builds.home-assistant.io/amber/haos_amber.img.xz
+
+# Abort if already running
+
+if pidof curl
+then
+	exit 0
+fi
+
+if [ -b /dev/mmcblk0 ]
+then
+	device=/dev/mmcblk0
+else
+	device=/dev/nvme0n1
+fi
+
+echo timer > /sys/class/leds/led2/trigger
+if curl "$url" | unxz --stdout | dd of=${device} bs=4M
+then
+	echo default-on > /sys/class/leds/led2/trigger
+	poweroff
+else
+	echo none > /sys/class/leds/led2/trigger
+fi
