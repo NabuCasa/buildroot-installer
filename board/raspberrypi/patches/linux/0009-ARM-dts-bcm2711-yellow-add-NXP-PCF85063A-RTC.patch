@@ -1,0 +1,32 @@
+From 2aaa4d5dd580848cb73881182903868c6aa7e35c Mon Sep 17 00:00:00 2001
+Message-Id: <2aaa4d5dd580848cb73881182903868c6aa7e35c.1647981769.git.stefan@agner.ch>
+In-Reply-To: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+References: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 12 Nov 2021 17:33:32 +0100
+Subject: [PATCH 09/10] ARM: dts: bcm2711: yellow: add NXP PCF85063A RTC
+
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+---
+ arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
+index 1a1ebdd54b39..d33be3e96b8a 100644
+--- a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -632,6 +632,11 @@ card_codec: pcm5121@4c {
+ 		CPVDD-supply = <&vdd_3v3_reg>;
+ 		status = "okay";
+ 	};
++
++	pcf85063a: rtc@51 {
++		compatible = "nxp,pcf85063a";
++		reg = <0x51>;
++	};
+ };
+ 
+ &i2s {
+-- 
+2.35.1
+

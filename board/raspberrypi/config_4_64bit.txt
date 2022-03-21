@@ -35,3 +35,6 @@ arm_64bit=1
 # Enable UART debug prints
 enable_uart=1
 uart_2ndstage=1
+
+# Use Yellow device tree
+device_tree=bcm2711-rpi-cm4-ha-yellow.dtb
