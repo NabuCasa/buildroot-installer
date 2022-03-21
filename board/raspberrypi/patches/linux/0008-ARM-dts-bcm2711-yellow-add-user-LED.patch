@@ -1,0 +1,43 @@
+From 3e3fca9f4dd8e91d929893664213b6dcc571dc16 Mon Sep 17 00:00:00 2001
+Message-Id: <3e3fca9f4dd8e91d929893664213b6dcc571dc16.1647981769.git.stefan@agner.ch>
+In-Reply-To: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+References: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Thu, 28 Oct 2021 19:38:04 +0200
+Subject: [PATCH 08/10] ARM: dts: bcm2711: yellow: add user LED
+
+Add yellow user LED.
+
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+---
+ arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
+index 5dc5f0c81e62..1a1ebdd54b39 100644
+--- a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -393,7 +393,6 @@ soc {
+ #include "bcm2711-rpi.dtsi"
+ #include "bcm283x-rpi-csi0-2lane.dtsi"
+ #include "bcm283x-rpi-csi1-4lane.dtsi"
+-#include "bcm283x-rpi-i2c0mux_0_44.dtsi"
+ 
+ / {
+ 	chosen {
+@@ -675,6 +674,12 @@ pwr_led: led-pwr {
+ 		linux,default-trigger = "default-on";
+ 		gpios = <&expgpio 2 GPIO_ACTIVE_LOW>;
+ 	};
++
++	user_led: led-user {
++		label = "led2";
++		linux,default-trigger = "heartbeat";
++		gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
++	};
+ };
+ 
+ &pwm1 {
+-- 
+2.35.1
+
