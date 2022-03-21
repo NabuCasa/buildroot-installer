@@ -1,9 +1,11 @@
-#!/bin/sh
+#!/bin/ash
+# shellcheck shell=dash
 
 set -e
 set -o pipefail
 
-url=https://os-builds.home-assistant.io/amber/haos_amber.img.xz
+version=$(curl https://version.home-assistant.io/dev.json | jq -r '.hassos.yellow')
+url="https://os-builds.home-assistant.io/${version}/haos_yellow-${version}.img.xz"
 
 # Abort if already running
 
