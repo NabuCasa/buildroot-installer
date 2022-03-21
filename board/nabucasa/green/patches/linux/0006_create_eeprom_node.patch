@@ -1,0 +1,17 @@
+diff --git a/arch/arm64/boot/dts/rockchip/rk3566-ha-green.dts b/arch/arm64/boot/dts/rockchip/rk3566-ha-green.dts
+index f742b904a..76c771933 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3566-ha-green.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3566-ha-green.dts
+@@ -449,6 +449,12 @@ rtc: rtc@51 {
+ 		reg = <0x51>;
+ 		#clock-cells = <0>;
+ 	};
++
++	eeprom: eeprom@50 {
++        compatible = "atmel,24c32";
++        reg = <0x50>;
++        pagesize = <32>;
++    };
+ };
+ 
+ &i2s0_8ch {
