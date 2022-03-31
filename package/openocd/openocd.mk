@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-OPENOCD_VERSION = 0.11.0
-OPENOCD_SOURCE = openocd-$(OPENOCD_VERSION).tar.bz2
-OPENOCD_SITE = http://sourceforge.net/projects/openocd/files/openocd/$(OPENOCD_VERSION)
+OPENOCD_VERSION = 94e7535be85a7bd5905dec68b6eae9a98aae0d7e
+OPENOCD_SITE = $(call github,openocd-org,openocd,$(OPENOCD_VERSION))
 OPENOCD_LICENSE = GPL-2.0+
 OPENOCD_LICENSE_FILES = COPYING
 # 0002-configure-enable-build-on-uclinux.patch patches configure.ac

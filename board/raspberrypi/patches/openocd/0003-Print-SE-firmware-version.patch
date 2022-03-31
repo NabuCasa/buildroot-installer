@@ -1,0 +1,49 @@
+From adbb5c140af8cfef34efccd7d03c8ead62604300 Mon Sep 17 00:00:00 2001
+Message-Id: <adbb5c140af8cfef34efccd7d03c8ead62604300.1648495971.git.stefan@agner.ch>
+In-Reply-To: <8e15423635f2c6889fc05c24837a53db13668b51.1648495971.git.stefan@agner.ch>
+References: <8e15423635f2c6889fc05c24837a53db13668b51.1648495971.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 28 Mar 2022 21:31:47 +0200
+Subject: [PATCH 3/3] Print SE firmware version
+
+---
+ tcl/target/efm32s2.cfg | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/tcl/target/efm32s2.cfg b/tcl/target/efm32s2.cfg
+index 73cebbb86..a578c36ec 100644
+--- a/tcl/target/efm32s2.cfg
++++ b/tcl/target/efm32s2.cfg
+@@ -209,9 +209,11 @@ proc efm32s2_dci_read_se_status {} {
+       return
+    }
+ 
++   set hsefirmware_idx 1
+    set debuglock_idx 3
+ 
+    if {$recvlen == 0x28} {
++      set hsefirmware_idx 5
+       set debuglock_idx 7
+    }
+ 
+@@ -228,10 +230,17 @@ proc efm32s2_dci_read_se_status {} {
+    }
+ 
+    echo "DCI SESTATUS response:"
++   #echo $sestatusarray
+    set sestatusarray
+ 
++   set hsefirmware $sestatusarray($hsefirmware_idx)
+    set debuglock $sestatusarray($debuglock_idx)
+ 
++   set sepatch [expr {$hsefirmware & 0xff}]
++   set seminor [expr {$hsefirmware >> 8 & 0xff}]
++   set semajor [expr {$hsefirmware >> 16 & 0xff}]
++   echo "SE firmware version: $semajor.$seminor.$sepatch"
++
+    if {$debuglock & 0x01} {
+       echo "Debug lock (config): Enabled"
+    } else {
+-- 
+2.35.1
+

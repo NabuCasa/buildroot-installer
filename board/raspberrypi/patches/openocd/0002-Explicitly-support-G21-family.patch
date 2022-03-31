@@ -1,0 +1,41 @@
+From d97f85d632851b1b470bf32436c1e66a007fb730 Mon Sep 17 00:00:00 2001
+Message-Id: <d97f85d632851b1b470bf32436c1e66a007fb730.1648495971.git.stefan@agner.ch>
+In-Reply-To: <8e15423635f2c6889fc05c24837a53db13668b51.1648495971.git.stefan@agner.ch>
+References: <8e15423635f2c6889fc05c24837a53db13668b51.1648495971.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 28 Mar 2022 18:03:15 +0200
+Subject: [PATCH 2/3] Explicitly support G21 family
+
+---
+ src/flash/nor/efm32s2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/flash/nor/efm32s2.c b/src/flash/nor/efm32s2.c
+index b9623ed1d..41eb95c3d 100644
+--- a/src/flash/nor/efm32s2.c
++++ b/src/flash/nor/efm32s2.c
+@@ -89,7 +89,7 @@
+ #define EFM32_CMU_REGBASE               0x40008000
+ #define EFM32_CMU_REG_CLKEN1_SET        0x1068
+ 
+-#define EFM32_CMU_REG_CLKEN1_MSC_MSK_G22 (1 << 17)
++#define EFM32_CMU_REG_CLKEN1_MSC_MSK_G21_G22 (1 << 17)
+ #define EFM32_CMU_REG_CLKEN1_MSC_MSK_G23 (1 << 16)
+ 
+ struct efm32_family_data {
+@@ -1014,9 +1014,9 @@ static int efm32x_probe(struct flash_bank *bank)
+ 	bank->num_sectors = num_pages;
+ 
+ 	/* enable MSC clock */
+-	uint32_t msc_clken = EFM32_CMU_REG_CLKEN1_MSC_MSK_G22;
+-	if (efm32_mcu_info.part_family_num == 22) {
+-		msc_clken = EFM32_CMU_REG_CLKEN1_MSC_MSK_G22;
++	uint32_t msc_clken = EFM32_CMU_REG_CLKEN1_MSC_MSK_G21_G22;
++	if (efm32_mcu_info.part_family_num == 21 || efm32_mcu_info.part_family_num == 22) {
++		msc_clken = EFM32_CMU_REG_CLKEN1_MSC_MSK_G21_G22;
+ 	} else if (efm32_mcu_info.part_family_num == 23) {
+ 		msc_clken = EFM32_CMU_REG_CLKEN1_MSC_MSK_G23;
+ 	} else {
+-- 
+2.35.1
+
