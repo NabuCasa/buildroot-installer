@@ -1,30 +1,31 @@
-From cc494d2e43c40c2673abc8a4fd6599ec1796eafb Mon Sep 17 00:00:00 2001
-Message-Id: <cc494d2e43c40c2673abc8a4fd6599ec1796eafb.1647981769.git.stefan@agner.ch>
-In-Reply-To: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
-References: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+From 41127a02d66d07d0a17e904557899b15a067a692 Mon Sep 17 00:00:00 2001
+Message-Id: <41127a02d66d07d0a17e904557899b15a067a692.1656950449.git.stefan@agner.ch>
+In-Reply-To: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
+References: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Tue, 9 Mar 2021 15:02:53 +0100
-Subject: [PATCH 07/10] ARM: dts: bcm2711: yellow: enable GPIO keys
+Subject: [PATCH] ARM: dts: bcm2711: yellow: enable GPIO keys
 
 Signed-off-by: Stefan Agner <stefan@agner.ch>
 ---
- .../boot/dts/bcm2711-rpi-cm4-ha-yellow.dts    | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ .../boot/dts/bcm2711-rpi-cm4-ha-yellow.dts    | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
 diff --git a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-index 67c7d86ecca2..5dc5f0c81e62 100644
+index f6f42bf45c92..e2fa42a11cc9 100644
 --- a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
 +++ b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-@@ -2,6 +2,7 @@
- /dts-v1/;
- #include "bcm2711.dtsi"
- #include "bcm2835-rpi.dtsi"
+@@ -4,6 +4,8 @@
+ #include "bcm2711-rpi.dtsi"
+ //#include "bcm283x-rpi-usb-peripheral.dtsi"
+ 
 +#include <dt-bindings/input/input.h>
- 
- #include <dt-bindings/reset/raspberrypi,firmware-reset.h>
- 
-@@ -29,6 +30,29 @@ aliases {
- 		blconfig = &blconfig;
++
+ / {
+ 	compatible = "raspberrypi,4-compute-module-ha-yellow", "raspberrypi,4-compute-module", "brcm,bcm2711";
+ 	model = "Raspberry Pi Compute Module 4 on Home Assistant Yellow";
+@@ -18,6 +20,29 @@ chosen {
+ 		stdout-path = "serial1:115200n8";
  	};
  
 +	keys: gpio-keys {
@@ -36,15 +37,15 @@ index 67c7d86ecca2..5dc5f0c81e62 100644
 +		status = "okay";
 +
 +		power {
-+			label = "Power Button";
++			label = "Blue Button";
 +			linux,code = <KEY_POWER>;
 +			gpios = <&gpio 26 GPIO_ACTIVE_LOW>;
 +			debounce-interval = <100>; // ms
 +		};
 +
 +		user {
-+			label = "User Button";
-+			linux,code = <KEY_MACRO>;
++			label = "Red Button";
++			linux,code = <BTN_1>;
 +			gpios = <&gpio 27 GPIO_ACTIVE_LOW>;
 +			debounce-interval = <100>; // ms
 +		};
@@ -53,7 +54,7 @@ index 67c7d86ecca2..5dc5f0c81e62 100644
  	leds {
  		led-act {
  			gpios = <&gpio 42 GPIO_ACTIVE_HIGH>;
-@@ -438,6 +462,12 @@ spidev1: spidev@1{
+@@ -380,6 +405,12 @@ spidev1: spidev@1{
  };
  
  &gpio {
@@ -67,5 +68,5 @@ index 67c7d86ecca2..5dc5f0c81e62 100644
  		brcm,pins = <9 10 11>;
  		brcm,function = <BCM2835_FSEL_ALT0>;
 -- 
-2.35.1
+2.37.0
 

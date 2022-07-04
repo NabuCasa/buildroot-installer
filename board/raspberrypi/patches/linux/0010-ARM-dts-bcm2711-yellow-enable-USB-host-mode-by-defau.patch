@@ -1,11 +1,10 @@
-From c65c727a631864a9ea486f41437f3392cbb1885e Mon Sep 17 00:00:00 2001
-Message-Id: <c65c727a631864a9ea486f41437f3392cbb1885e.1647981769.git.stefan@agner.ch>
-In-Reply-To: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
-References: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+From f1553f413c8f53694d2f27db5b5c43d19cf1ff4f Mon Sep 17 00:00:00 2001
+Message-Id: <f1553f413c8f53694d2f27db5b5c43d19cf1ff4f.1656950449.git.stefan@agner.ch>
+In-Reply-To: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
+References: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 7 Jan 2022 17:10:00 +0100
-Subject: [PATCH 10/10] ARM: dts: bcm2711: yellow: enable USB host mode by
- default
+Subject: [PATCH] ARM: dts: bcm2711: yellow: enable USB host mode by default
 
 The DWC2 controller is disable by default. Enable it since Home
 Assistant Yellow has a USB hub and USB ports connected to it.
@@ -16,10 +15,10 @@ Signed-off-by: Stefan Agner <stefan@agner.ch>
  1 file changed, 9 insertions(+)
 
 diff --git a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-index d33be3e96b8a..d81f2f1d4b43 100644
+index f78428ea64f3..711a09441ad0 100644
 --- a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
 +++ b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-@@ -656,6 +656,15 @@ &sdhost {
+@@ -599,6 +599,15 @@ &sdhost {
  	status = "disabled";
  };
  
@@ -36,5 +35,5 @@ index d33be3e96b8a..d81f2f1d4b43 100644
  	led-modes = <0x00 0x08>; /* link/activity link */
  };
 -- 
-2.35.1
+2.37.0
 
