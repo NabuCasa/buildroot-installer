@@ -1,8 +1,8 @@
-From ce3ab35036f12781b51b1a400f93bab06fd4cfcb Mon Sep 17 00:00:00 2001
-Message-Id: <ce3ab35036f12781b51b1a400f93bab06fd4cfcb.1647981769.git.stefan@agner.ch>
+From 1463c12602e542cbe6df95ef53be3a44c92b65e4 Mon Sep 17 00:00:00 2001
+Message-Id: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
 From: Pascal Vizeli <pvizeli@syshack.ch>
 Date: Tue, 2 Jun 2020 21:20:08 +0000
-Subject: [PATCH 01/10] ARM: dts: bcm283x: add compatible picked up by U-Boot
+Subject: [PATCH] ARM: dts: bcm283x: add compatible picked up by U-Boot
 
 Without brcm,bcm2835-pl011 in compatible U-Boot uses the regular PL011
 driver which seems to crash when enable_uart=1 is not used. Using
@@ -17,7 +17,7 @@ Signed-off-by: Stefan Agner <stefan@agner.ch>
  2 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm/boot/dts/bcm2711.dtsi b/arch/arm/boot/dts/bcm2711.dtsi
-index 544633a84433..2d5b35ed9b09 100644
+index 9f9e45a96a58..d44c42301bd6 100644
 --- a/arch/arm/boot/dts/bcm2711.dtsi
 +++ b/arch/arm/boot/dts/bcm2711.dtsi
 @@ -127,7 +127,7 @@ rng@7e104000 {
@@ -70,5 +70,5 @@ index 62d7ee513549..3ac10a0922b7 100644
  			interrupts = <2 25>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
 -- 
-2.35.1
+2.37.0
 
