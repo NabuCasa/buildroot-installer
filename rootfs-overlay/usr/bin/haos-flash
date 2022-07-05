@@ -4,14 +4,25 @@
 set -e
 set -o pipefail
 
-version=$(curl https://version.home-assistant.io/dev.json | jq -r '.hassos.yellow')
-url="https://os-builds.home-assistant.io/${version}/haos_yellow-${version}.img.xz"
-
 # Abort if already running
-
-if pidof curl
+if pidof dd
 then
-	exit 0
+	echo "dd already running, aborting..."
+	exit 1
+fi
+
+if [ "$1" = "dev" ]; then
+	channel="https://version.home-assistant.io/dev.json"
+else
+	channel="https://version.home-assistant.io/stable.json"
+fi
+
+version=$(curl "${channel}" | jq -r '.hassos.yellow')
+
+if [ "$1" = "dev" ]; then
+	url="https://os-builds.home-assistant.io/${version}/haos_yellow-${version}.img.xz"
+else
+	url="https://github.com/home-assistant/operating-system/releases/download/${version}/haos_yellow-${version}.img.xz"
 fi
 
 if [ -b /dev/mmcblk0 ]
@@ -22,7 +33,7 @@ else
 fi
 
 echo timer > /sys/class/leds/led2/trigger
-if curl "$url" | unxz --stdout | dd of=${device} bs=4M
+if curl -L "$url" | unxz --stdout | dd of=${device} bs=4M
 then
 	echo default-on > /sys/class/leds/led2/trigger
 	poweroff
