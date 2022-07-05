@@ -1,0 +1,13 @@
+[Unit]
+Description=Autostart Home Assistant OS installation
+Wants=network-online.target time-sync.target
+After=network-online.target time-sync.target
+DefaultDependencies=no
+
+[Service]
+Type=idle
+ExecStartPre=/usr/bin/sleep 3
+ExecStart=-/usr/bin/haos-flash stable
+
+[Install]
+WantedBy=basic.target
