@@ -8,6 +8,7 @@ DefaultDependencies=no
 Type=idle
 ExecStartPre=/usr/bin/sleep 3
 ExecStart=-/usr/bin/haos-flash stable
+StandardOutput=journal+console
 
 [Install]
 WantedBy=basic.target
