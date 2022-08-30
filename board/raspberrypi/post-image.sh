@@ -24,4 +24,6 @@ genimage \
 	--outputpath "${BINARIES_DIR}" \
 	--config "${GENIMAGE_CFG}"
 
+xz -5 -z "${BINARIES_DIR}/boot.img"
+
 exit $?
