@@ -32,9 +32,15 @@ if [ -b /dev/mmcblk0 ]
 then
 	echo "mmcblk0."
 	device=/dev/mmcblk0
-else
+elif [ -b /dev/nvme0n1 ]
+then
 	echo "nvme0n1."
 	device=/dev/nvme0n1
+else
+	echo "nowhere."
+	echo "No storage media found, exiting."
+	echo none > /sys/class/leds/led2/trigger
+	exit 1
 fi
 
 echo timer > /sys/class/leds/led2/trigger
@@ -44,6 +50,6 @@ then
 	echo default-on > /sys/class/leds/led2/trigger
 	poweroff
 else
-	echo "Error during Home Assistnat OS installation"
+	echo "Error during Home Assistant OS installation."
 	echo none > /sys/class/leds/led2/trigger
 fi
