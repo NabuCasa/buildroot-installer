@@ -6,7 +6,7 @@ DefaultDependencies=no
 
 [Service]
 Type=idle
-ExecStartPre=/usr/bin/sleep 3
+ExecStartPre=/usr/bin/sleep 5
 ExecStart=-/usr/bin/haos-flash stable
 StandardOutput=journal+console
 

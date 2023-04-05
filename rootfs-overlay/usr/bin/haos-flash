@@ -19,6 +19,10 @@ else
 	channel="https://version.home-assistant.io/stable.json"
 fi
 
+if [ "$2" = "nvme" ]; then
+	echo "Force installation on NVMe drive..."
+fi
+
 version=$(curl --no-progress-meter -L "${channel}" | jq -r '.hassos.yellow')
 echo -n "Installing Home Assitant OS ${version} to "
 
@@ -28,7 +32,7 @@ else
 	url="https://github.com/home-assistant/operating-system/releases/download/${version}/haos_yellow-${version}.img.xz"
 fi
 
-if [ -b /dev/mmcblk0 ]
+if [ -b /dev/mmcblk0 ] && [ "$2" != "nvme" ]
 then
 	echo "mmcblk0."
 	device=/dev/mmcblk0
@@ -36,6 +40,12 @@ elif [ -b /dev/nvme0n1 ]
 then
 	echo "nvme0n1."
 	device=/dev/nvme0n1
+	if [ -b /dev/mmcblk0 ]
+	then
+		echo "Clearing eMMC to ensure NVMe boot."
+		blkdiscard /dev/mmcblk0
+		dd if=/dev/zero of=/dev/mmcblk0 bs=4M count=1
+	fi
 else
 	echo "nowhere."
 	echo "No storage media found, exiting."
