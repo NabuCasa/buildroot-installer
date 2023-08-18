@@ -32,7 +32,7 @@ index e2fa42a11cc9..6039c7894796 100644
 +
 +	user_led: led-user {
 +		label = "led2";
-+		linux,default-trigger = "heartbeat";
++		linux,default-trigger = "timer";
 +		gpios = <&gpio 44 GPIO_ACTIVE_LOW>;
 +	};
  };

@@ -44,6 +44,8 @@ else
 fi
 
 echo timer > /sys/class/leds/led2/trigger
+echo 100 > /sys/class/leds/led2/delay_on
+echo 100 > /sys/class/leds/led2/delay_off
 if curl --no-progress-meter -L "$url" | unxz --stdout | dd of=${device} bs=4M
 then
 	echo "Successfully installed Home Assistant OS, shutting down the system"
