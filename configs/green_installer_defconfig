@@ -56,6 +56,5 @@ BR2_PACKAGE_HOST_MTOOLS=y
 BR2_TARGET_ROOTFS_CPIO=y
 BR2_TARGET_ROOTFS_CPIO_ZSTD=y
 
-BR2_ROOTFS_POST_IMAGE_SCRIPT="support/scripts/genimage.sh"
-BR2_ROOTFS_POST_SCRIPT_ARGS="-c board/nabucasa/green/genimage.cfg"
+BR2_ROOTFS_POST_IMAGE_SCRIPT="board/nabucasa/green/post-image.sh"
 BR2_ROOTFS_POST_BUILD_SCRIPT="board/nabucasa/green/post-build.sh"
