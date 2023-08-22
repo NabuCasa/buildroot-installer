@@ -1,0 +1,53 @@
+#!/bin/ash
+# shellcheck shell=dash
+
+set -e
+set -o pipefail
+
+# Abort if already running
+if pidof dd
+then
+	echo "dd already running, aborting..."
+	exit 1
+fi
+
+if [ "$1" = "dev" ]; then
+	echo "Getting latest Home Assistant OS version from channel dev..."
+	channel="https://version.home-assistant.io/dev.json"
+else
+	echo "Getting latest Home Assistant OS version from channel stable..."
+	channel="https://version.home-assistant.io/stable.json"
+fi
+
+version=$(curl --no-progress-meter -L "${channel}" | jq -r '.hassos.green')
+echo -n "Installing Home Assitant OS ${version} to "
+
+if [ "$1" = "dev" ]; then
+	url="https://os-builds.home-assistant.io/${version}/haos_green-${version}.img.xz"
+else
+	url="https://github.com/home-assistant/operating-system/releases/download/${version}/haos_green-${version}.img.xz"
+fi
+
+if [ -b /dev/mmcblk0 ]
+then
+	echo "mmcblk0."
+	device=/dev/mmcblk0
+else
+	echo "nowhere."
+	echo "No storage media found, exiting."
+	echo none > /sys/class/leds/yellow:heartbeat/trigger
+	exit 1
+fi
+
+echo timer > /sys/class/leds/yellow:heartbeat/trigger
+echo 100 > /sys/class/leds/yellow:heartbeat/delay_on
+echo 100 > /sys/class/leds/yellow:heartbeat/delay_off
+if curl --no-progress-meter -L "$url" | unxz --stdout | dd of=${device} bs=4M
+then
+	echo "Successfully installed Home Assistant OS, shutting down the system"
+	echo default-on > /sys/class/leds/yellow:heartbeat/trigger
+	poweroff
+else
+	echo "Error during Home Assistant OS installation."
+	echo none > /sys/class/leds/yellow:heartbeat/trigger
+fi
