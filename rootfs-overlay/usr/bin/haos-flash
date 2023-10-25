@@ -4,6 +4,8 @@
 set -e
 set -o pipefail
 
+use_nvme=0
+
 # Abort if already running
 if pidof dd
 then
@@ -11,7 +13,7 @@ then
 	exit 1
 fi
 
-if [ "$1" = "dev" ]; then
+if [ "$1" = "dev" ] || [ -f /tmp/haos-flash-dev ]; then
 	echo "Getting latest Home Assistant OS version from channel dev..."
 	channel="https://version.home-assistant.io/dev.json"
 else
@@ -19,8 +21,9 @@ else
 	channel="https://version.home-assistant.io/stable.json"
 fi
 
-if [ "$2" = "nvme" ]; then
+if [ "$2" = "nvme" ] || [ -f /tmp/haos-flash-to-nvme ]; then
 	echo "Force installation on NVMe drive..."
+	use_nvme=1
 fi
 
 version=$(curl --no-progress-meter -L "${channel}" | jq -r '.hassos.yellow')
@@ -32,7 +35,7 @@ else
 	url="https://github.com/home-assistant/operating-system/releases/download/${version}/haos_yellow-${version}.img.xz"
 fi
 
-if [ -b /dev/mmcblk0 ] && [ "$2" != "nvme" ]
+if [ -b /dev/mmcblk0 ] && [ $use_nvme -eq 0 ]
 then
 	echo "mmcblk0."
 	device=/dev/mmcblk0
