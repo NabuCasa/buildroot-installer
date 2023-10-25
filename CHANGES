@@ -1,3 +1,98 @@
+2023.02.6, released October 16th, 2023
+
+	Important / security related fixes.
+
+	Per-package builds: Do not use hard links for host / target
+	dirs, fixing issues with package rebuilds or post-build
+	scripts modifications.
+
+	Infrastructure: Explicitly disable shuffle mode for Make >=
+	4.4 where needed.
+
+	Urandom-scripts: Move seedrng init script to S01 for earlier
+	random number entrophy initialization.
+
+	Go: Bump to 1.20.x as 1.19.x is now EOL and affected by
+	security issues.
+
+	Updated/fixed packages: at91bootstrap, bind, cups, efl,
+	enlightenment, exim, gcc, glibc, gnu-efi, go, go-bootstrap,
+	gptfdisk, gst-omx, gst1-devtools, gst1-libav,
+	gst1-plugins-bad, gst1-plugins-base, gst1-plugins-good,
+	gst1-plugins-ugly, gst1-python, gst1-rstp-server,
+	gst1-rtsp-vaapi, gstreamer1, gstreamer1-editing-services,
+	libcue, libcurl, libfastjson, libhtp, libmodplug, librsvg,
+	libvpx, libyang, linux-tools, mbedtls, mosquitto, mutt, neon,
+	netsnmp, nmap, nodejs, olsr, openblas, opkg-utils, php,
+	powertop, python-mako, python3, rockchip-mali, samba4, sslh,
+	suricata, tar, unifdef, unrandom-scripts, webkitgtk,
+	wireless-regdb, wpewebkit
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15628: Missing dependencies in BR2_PACKAGE_PYTHON_MAKO
+	#15808: connman is not supported on musl
+	#15814: C++ not supported by bootlin toolchain
+
+2023.02.5, released September 27th, 2023
+
+	Important / security related fixes.
+
+	Updated/fixed packages: agentpp, asterisk, at91dataflashboot,
+	aubio, berkeleydb, bind, bwm-ng, chocolate-doom, clamav,
+	compiler-rt, connman, cups, dav1d, diffutils, dracut, dt,
+	expect, fail2ban, fio, flite, freerdp, freeswitch, fstrcmp,
+	gcc, gdb, ghostscript, gmp, go, grub2, haproxy,
+	heirloom-mailx, hwloc, icu, intel-microcode, irssi, libcoap,
+	libcurl, libiec61850, libjxl, libks, libksba, libmodsecurity,
+	libpjsip, libqb, libraw, libssh, libtommath, less, lldpd,
+	log4cxx, lsof, mdadm, mosquitto, mpd, mutt, mv-ddr-marvell,
+	ne10, netatalk, network-manager, nftables, nodejs, ntpsec,
+	nut, openblas, openjdk, openjdk-bin, opensc, openssh,
+	pcm-tools, perftest, php, pixman, poppler, postgresql, pppd,
+	python-django, python-ipython, python-pip, python-pylibfdt,
+	python-tornado, python3, qt5, ramspeed, rtl8189fs, samba4,
+	screen, screenfetch, sngrep, sofia-sip, stellarium,
+	strongswan, sysstat, tar, tcl, uboot, uclibc, vim, webkitgtk,
+	webp, wireshark, xfsprogs, xserver_xorg-server, xterm, yajl,
+	zbar, zxing-cpp
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#14366: Nodejs fails with "version `GLIBC_2.34' not found"..
+	#15754: The docker-engine and docker-cli versions are not...
+	#15787: atmel_sama5d3_xplained_mmc_defconfig: Missing...
+	#15790: at91sam9x5ek_dev_defconfig: Missing...
+
+2023.02.4, released August 31th, 2023
+
+	Important / security related fixes.
+
+	Toolchains: Correctly mark Bootlin external toolchains as
+	having OpenMP support.
+
+	Arch: Mark Alderlake x86 variants as having no AVX512 support.
+
+	Utils: Ensure utils/docker-run correctly supports git
+	worktrees.
+
+	Defconfigs: Beaglebone qt5: Enable support for green wireless
+	variant.
+
+	Updated/fixed packages: arm-trusted-firmware, bind, cairo,
+	cmocka, containerd, crudini, dmidecode, ffmpeg, freescale-imx,
+	gcc, gdb, ghostscript, gkrellm, gnuradio, go, heimdall,
+	iperf3, libcurl, libmodsecurity, libopenssl, libssh,
+	libubootenv, libuhttpd, linux-tools, ntp, openssh, php,
+	pipewire, python-iniparse, python-iptables, python-pysmb,
+	rtl8189fs, sam-ba, samba4, seatd, speex, supertuxkart, sysdig,
+	tor, tpm2-tss, uboot, unzip, webkitgtk, wireless-regdb,
+	wolfssl, wpebackend-fdo wpewebkit, xenomai, yaml-cpp, yavta
+
+	Issues resolved (http://bugs.uclibc.org):
+
+	#15634: fluidsynths refers to missing libgomp.so.1
+
 2023.02.3, released July 17th, 2023
 
 	Important / security related fixes.
