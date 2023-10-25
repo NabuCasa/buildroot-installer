@@ -66,5 +66,8 @@ then
 	poweroff
 else
 	echo "Error during Home Assistant OS installation."
+	echo "Clearing boot device."
+	dd if=/dev/zero of=${device} bs=4M count=1
+	blkdiscard ${device}
 	echo none > /sys/class/leds/led2/trigger
 fi
