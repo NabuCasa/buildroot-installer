@@ -40,6 +40,15 @@ elif [ -b /dev/nvme0n1 ]
 then
 	echo "nvme0n1."
 	device=/dev/nvme0n1
+
+	if nvme format -b 512 -f ${device}
+	then
+		echo "NVMe formatted with 512B block size."
+	else
+		echo "Formatting NVMe with 512B block size failed."
+		exit 1
+	fi
+
 	if [ -b /dev/mmcblk0 ]
 	then
 		echo "Clearing eMMC to ensure NVMe boot."
