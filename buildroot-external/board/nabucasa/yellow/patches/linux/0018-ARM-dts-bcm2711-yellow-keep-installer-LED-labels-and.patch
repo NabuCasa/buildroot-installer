@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20=C4=8Cerm=C3=A1k?= <sairon@sairon.cz>
+Date: Thu, 15 Oct 2026 11:57:13 +0200
+Subject: [PATCH] ARM: dts: bcm2711: yellow: keep installer LED labels and user
+ LED trigger
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Home Assistant OS renamed the Yellow LEDs to act, pwr and usr and uses
+the heartbeat trigger for the user LED. The installer scripts use the
+led0, led1 and led2 names and the user LED blinks with the timer
+trigger. Restore both for the installer.
+
+Signed-off-by: Jan Čermák <sairon@sairon.cz>
+---
+ arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+index b824646fd8b4..d2a0eb30bae2 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -619,22 +619,22 @@ audio_pins: audio_pins {
+ 
+ &leds {
+ 	act_led: led-act {
+-		label = "act";
++		label = "led0";
+ 		default-state = "off";
+ 		linux,default-trigger = "activity";
+ 		gpios = <&gpio 42 GPIO_ACTIVE_HIGH>;
+ 	};
+ 
+ 	pwr_led: led-pwr {
+-		label = "pwr";
++		label = "led1";
+ 		default-state = "off";
+ 		linux,default-trigger = "default-on";
+ 		gpios = <&expgpio 2 GPIO_ACTIVE_LOW>;
+ 	};
+ 
+ 	usr_led: led-usr {
+-		label = "usr";
+-		linux,default-trigger = "heartbeat";
++		label = "led2";
++		linux,default-trigger = "timer";
+ 		default-state = "off";
+ 		panic-indicator;
+ 		gpios = <&gpio 44 GPIO_ACTIVE_LOW>;

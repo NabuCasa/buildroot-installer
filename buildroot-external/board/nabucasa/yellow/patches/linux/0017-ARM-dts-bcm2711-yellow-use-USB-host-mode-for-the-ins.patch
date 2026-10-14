@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jan=20=C4=8Cerm=C3=A1k?= <sairon@sairon.cz>
+Date: Thu, 15 Oct 2026 11:57:13 +0200
+Subject: [PATCH] ARM: dts: bcm2711: yellow: use USB host mode for the
+ installer
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Home Assistant OS switched the Yellow USB controller to OTG mode. The
+installer has always used host mode, keep it.
+
+Signed-off-by: Jan Čermák <sairon@sairon.cz>
+---
+ arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+index b3d57a53d222..b824646fd8b4 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -599,7 +599,7 @@ &sdhost {
+ 
+ &usb {
+ 	compatible = "brcm,bcm2835-usb";
+-	dr_mode = "otg";
++	dr_mode = "host";
+ 	g-np-tx-fifo-size = <32>;
+ 	g-rx-fifo-size = <558>;
+ 	g-tx-fifo-size = <512 512 512 512 512 256 256>;

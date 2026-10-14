@@ -1,7 +1,4 @@
-From 298d5254c1c2151b34eaf87f7e2f44205d34d909 Mon Sep 17 00:00:00 2001
-Message-Id: <298d5254c1c2151b34eaf87f7e2f44205d34d909.1656950449.git.stefan@agner.ch>
-In-Reply-To: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
-References: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Stefan Agner <stefan@agner.ch>
 Date: Thu, 4 Mar 2021 17:19:01 +0100
 Subject: [PATCH] ARM: dts: bcm2711: yellow: add I2S audio codec
@@ -10,14 +7,14 @@ Add TI PCM5122 I2S audio codec.
 
 Signed-off-by: Stefan Agner <stefan@agner.ch>
 ---
- .../boot/dts/bcm2711-rpi-cm4-ha-yellow.dts    | 26 +++++++++++++++++++
+ .../broadcom/bcm2711-rpi-cm4-ha-yellow.dts    | 26 +++++++++++++++++++
  1 file changed, 26 insertions(+)
 
-diff --git a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-index 0bdbfdd44aed..f6f42bf45c92 100644
---- a/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-+++ b/arch/arm/boot/dts/bcm2711-rpi-cm4-ha-yellow.dts
-@@ -535,11 +535,22 @@ &i2c6 {
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+index 72f437f4e81a..8ca65c696531 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
++++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-ha-yellow.dts
+@@ -514,11 +514,22 @@ &i2c6 {
  	pinctrl-names = "default";
  	pinctrl-0 = <&i2c6_pins>;
  	status = "okay";
@@ -40,7 +37,7 @@ index 0bdbfdd44aed..f6f42bf45c92 100644
  };
  
  // =============================================
-@@ -582,6 +593,21 @@ &pwm1 {
+@@ -563,6 +574,21 @@ &pwm1 {
  	status = "disabled";
  };
  
@@ -59,9 +56,6 @@ index 0bdbfdd44aed..f6f42bf45c92 100644
 +	};
 +};
 +
- &audio {
+ &vchiq {
  	pinctrl-names = "default";
  	pinctrl-0 = <&audio_pins>;
--- 
-2.37.0
-
