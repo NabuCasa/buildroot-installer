@@ -1,0 +1,65 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "release-[0-9]+"
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        target: [yellow_installer, green_installer]
+    steps:
+      - name: Free up disk space
+        run: sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc /opt/hostedtoolcache
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+          persist-credentials: false
+
+      - name: Build
+        run: buildroot/utils/docker-run make ${{ matrix.target }}
+
+      - name: Rename image
+        run: |
+          mkdir dist
+          cp output/${{ matrix.target }}/images/boot.img.xz \
+            "dist/${{ matrix.target }}-${GITHUB_REF_NAME#release-}.img.xz"
+
+      - name: Upload image
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    name: Create release
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download images
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/* \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "Build ${GITHUB_REF_NAME#release-}" \
+            --generate-notes
