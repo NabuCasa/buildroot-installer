@@ -1,4 +1,4 @@
-# Home Assistant installer images
+# Home Assistant Green/Yellow Installer
 
 Buildroot is a git submodule in `buildroot/`. Board support, packages and
 the installer rootfs overlay live in the br2-external tree in
