@@ -1,0 +1,5 @@
+# The Yellow DTS uses the activity trigger for the ACT LED
+CONFIG_LEDS_TRIGGER_ACTIVITY=y
+
+# Host depmod is built without xz support
+CONFIG_MODULE_COMPRESS_NONE=y

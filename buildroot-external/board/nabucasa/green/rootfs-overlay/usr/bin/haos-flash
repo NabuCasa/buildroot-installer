@@ -38,19 +38,19 @@ then
 else
 	echo "nowhere."
 	echo "No storage media found, exiting."
-	echo none > /sys/class/leds/yellow:heartbeat/trigger
+	echo none > /sys/class/leds/user/trigger
 	exit 1
 fi
 
-echo timer > /sys/class/leds/yellow:heartbeat/trigger
-echo 100 > /sys/class/leds/yellow:heartbeat/delay_on
-echo 100 > /sys/class/leds/yellow:heartbeat/delay_off
+echo timer > /sys/class/leds/user/trigger
+echo 100 > /sys/class/leds/user/delay_on
+echo 100 > /sys/class/leds/user/delay_off
 if curl --no-progress-meter -L "$url" | unxz --stdout | dd of=${device} bs=4M
 then
 	echo "Successfully installed Home Assistant OS, shutting down the system"
-	echo default-on > /sys/class/leds/yellow:heartbeat/trigger
+	echo default-on > /sys/class/leds/user/trigger
 	poweroff
 else
 	echo "Error during Home Assistant OS installation."
-	echo none > /sys/class/leds/yellow:heartbeat/trigger
+	echo none > /sys/class/leds/user/trigger
 fi

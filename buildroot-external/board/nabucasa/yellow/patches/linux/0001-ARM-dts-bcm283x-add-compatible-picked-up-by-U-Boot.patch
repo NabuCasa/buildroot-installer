@@ -1,5 +1,4 @@
-From 1463c12602e542cbe6df95ef53be3a44c92b65e4 Mon Sep 17 00:00:00 2001
-Message-Id: <1463c12602e542cbe6df95ef53be3a44c92b65e4.1656950449.git.stefan@agner.ch>
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Pascal Vizeli <pvizeli@syshack.ch>
 Date: Tue, 2 Jun 2020 21:20:08 +0000
 Subject: [PATCH] ARM: dts: bcm283x: add compatible picked up by U-Boot
@@ -12,15 +11,15 @@ not using that compatible string.
 Signed-off-by: Pascal Vizeli <pvizeli@syshack.ch>
 Signed-off-by: Stefan Agner <stefan@agner.ch>
 ---
- arch/arm/boot/dts/bcm2711.dtsi | 8 ++++----
- arch/arm/boot/dts/bcm283x.dtsi | 2 +-
+ arch/arm/boot/dts/broadcom/bcm2711.dtsi | 8 ++++----
+ arch/arm/boot/dts/broadcom/bcm283x.dtsi | 2 +-
  2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/bcm2711.dtsi b/arch/arm/boot/dts/bcm2711.dtsi
-index 9f9e45a96a58..d44c42301bd6 100644
---- a/arch/arm/boot/dts/bcm2711.dtsi
-+++ b/arch/arm/boot/dts/bcm2711.dtsi
-@@ -127,7 +127,7 @@ rng@7e104000 {
+diff --git a/arch/arm/boot/dts/broadcom/bcm2711.dtsi b/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+index 09dbe7b3ca39..76a5d3f44040 100644
+--- a/arch/arm/boot/dts/broadcom/bcm2711.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm2711.dtsi
+@@ -128,7 +128,7 @@ rng@7e104000 {
  		};
  
  		uart2: serial@7e201400 {
@@ -29,7 +28,7 @@ index 9f9e45a96a58..d44c42301bd6 100644
  			reg = <0x7e201400 0x200>;
  			interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
-@@ -138,7 +138,7 @@ uart2: serial@7e201400 {
+@@ -139,7 +139,7 @@ uart2: serial@7e201400 {
  		};
  
  		uart3: serial@7e201600 {
@@ -38,7 +37,7 @@ index 9f9e45a96a58..d44c42301bd6 100644
  			reg = <0x7e201600 0x200>;
  			interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
-@@ -149,7 +149,7 @@ uart3: serial@7e201600 {
+@@ -150,7 +150,7 @@ uart3: serial@7e201600 {
  		};
  
  		uart4: serial@7e201800 {
@@ -47,7 +46,7 @@ index 9f9e45a96a58..d44c42301bd6 100644
  			reg = <0x7e201800 0x200>;
  			interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
-@@ -160,7 +160,7 @@ uart4: serial@7e201800 {
+@@ -161,7 +161,7 @@ uart4: serial@7e201800 {
  		};
  
  		uart5: serial@7e201a00 {
@@ -56,11 +55,11 @@ index 9f9e45a96a58..d44c42301bd6 100644
  			reg = <0x7e201a00 0x200>;
  			interrupts = <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
-diff --git a/arch/arm/boot/dts/bcm283x.dtsi b/arch/arm/boot/dts/bcm283x.dtsi
-index 62d7ee513549..3ac10a0922b7 100644
---- a/arch/arm/boot/dts/bcm283x.dtsi
-+++ b/arch/arm/boot/dts/bcm283x.dtsi
-@@ -302,7 +302,7 @@ uart1_ctsrts_gpio42: uart1_ctsrts_gpio42 {
+diff --git a/arch/arm/boot/dts/broadcom/bcm283x.dtsi b/arch/arm/boot/dts/broadcom/bcm283x.dtsi
+index 8ac38cdb9ffc..59c9937832d2 100644
+--- a/arch/arm/boot/dts/broadcom/bcm283x.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm283x.dtsi
+@@ -302,7 +302,7 @@ uart1_ctsrts_gpio42: uart1-ctsrts-gpio42 {
  		};
  
  		uart0: serial@7e201000 {
@@ -69,6 +68,3 @@ index 62d7ee513549..3ac10a0922b7 100644
  			reg = <0x7e201000 0x200>;
  			interrupts = <2 25>;
  			clocks = <&clocks BCM2835_CLOCK_UART>,
--- 
-2.37.0
-
