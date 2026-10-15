@@ -1,0 +1,12 @@
+[Unit]
+Description=Set user LED to solid
+Wants=network-online.target time-sync.target
+After=network-online.target time-sync.target
+DefaultDependencies=no
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/sh -c '/usr/bin/echo default-on > /sys/class/leds/led2/trigger'
+
+[Install]
+WantedBy=basic.target

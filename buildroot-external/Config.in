@@ -1,1 +1,2 @@
 source "$BR2_EXTERNAL_INSTALLER_PATH/package/rockchip-blobs/Config.in"
+source "$BR2_EXTERNAL_INSTALLER_PATH/package/rpi-eeprom/Config.in"

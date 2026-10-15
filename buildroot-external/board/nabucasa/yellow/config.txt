@@ -1,0 +1,40 @@
+# Please note that this is only a sample, we recommend you to change it to fit
+# your needs.
+# You should override this file using BR2_PACKAGE_RPI_FIRMWARE_CONFIG_FILE.
+# See http://buildroot.org/manual.html#rootfs-custom
+# and http://elinux.org/RPiconfig for a description of config.txt syntax
+
+start_file=start4.elf
+fixup_file=fixup4.dat
+
+kernel=Image
+
+# To use an external initramfs file
+initramfs rootfs.cpio.zst
+
+# Disable overscan assuming the display supports displaying the full resolution
+# If the text shown on the screen disappears off the edge, comment this out
+disable_overscan=1
+
+# Make room for larger initramfs
+gpu_mem=16
+
+# fixes rpi (3B, 3B+, 3A+, 4B and Zero W) ttyAMA0 serial console
+dtoverlay=miniuart-bt
+
+# enable autoprobing of Bluetooth driver without need of hciattach/btattach
+dtoverlay=krnbt=on
+
+dtoverlay=vc4-kms-v3d-pi4
+dtoverlay=imx219
+#dtoverlay=ov5647
+
+# enable 64bits support
+arm_64bit=1
+
+# Enable UART debug prints
+enable_uart=1
+uart_2ndstage=1
+
+# Use Yellow device tree
+device_tree=bcm2711-rpi-cm4-ha-yellow.dtb

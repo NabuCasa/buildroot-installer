@@ -1,0 +1,73 @@
+#!/bin/ash
+# shellcheck shell=dash
+
+set -e
+set -o pipefail
+
+use_nvme=0
+
+# Abort if already running
+if pidof dd
+then
+	echo "dd already running, aborting..."
+	exit 1
+fi
+
+if [ "$1" = "dev" ] || [ -f /tmp/haos-flash-dev ]; then
+	echo "Getting latest Home Assistant OS version from channel dev..."
+	channel="https://version.home-assistant.io/dev.json"
+else
+	echo "Getting latest Home Assistant OS version from channel stable..."
+	channel="https://version.home-assistant.io/stable.json"
+fi
+
+if [ "$2" = "nvme" ] || [ -f /tmp/haos-flash-to-nvme ]; then
+	echo "Force installation on NVMe drive..."
+	use_nvme=1
+fi
+
+version=$(curl --no-progress-meter -L "${channel}" | jq -r '.hassos.yellow')
+echo -n "Installing Home Assitant OS ${version} to "
+
+if [ "$1" = "dev" ]; then
+	url="https://os-builds.home-assistant.io/${version}/haos_yellow-${version}.img.xz"
+else
+	url="https://github.com/home-assistant/operating-system/releases/download/${version}/haos_yellow-${version}.img.xz"
+fi
+
+if [ -b /dev/mmcblk0 ] && [ $use_nvme -eq 0 ]
+then
+	echo "mmcblk0."
+	device=/dev/mmcblk0
+elif [ -b /dev/nvme0n1 ]
+then
+	echo "nvme0n1."
+	device=/dev/nvme0n1
+	if [ -b /dev/mmcblk0 ]
+	then
+		echo "Clearing eMMC to ensure NVMe boot."
+		blkdiscard /dev/mmcblk0
+		dd if=/dev/zero of=/dev/mmcblk0 bs=4M count=1
+	fi
+else
+	echo "nowhere."
+	echo "No storage media found, exiting."
+	echo none > /sys/class/leds/led2/trigger
+	exit 1
+fi
+
+echo timer > /sys/class/leds/led2/trigger
+echo 100 > /sys/class/leds/led2/delay_on
+echo 100 > /sys/class/leds/led2/delay_off
+if curl --no-progress-meter -L "$url" | unxz --stdout | dd of=${device} bs=4M
+then
+	echo "Successfully installed Home Assistant OS, shutting down the system"
+	echo default-on > /sys/class/leds/led2/trigger
+	poweroff
+else
+	echo "Error during Home Assistant OS installation."
+	echo "Clearing boot device."
+	dd if=/dev/zero of=${device} bs=4M count=1
+	blkdiscard ${device}
+	echo none > /sys/class/leds/led2/trigger
+fi
